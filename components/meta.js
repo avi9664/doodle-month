@@ -9,7 +9,7 @@ const Meta = ({
   name = 'Doodle Month', // site name
   description = 'This website was bootstrapped with @lachlanjc’s Next.js Theme Starter.', // page description
   image = '', // social card image URL
-  url = 'https://next-theme-starter.vercel.app',
+  url = 'https://doodle-month.vercel.app/',
   children,
 }) => (
   <Head>

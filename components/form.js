@@ -1,10 +1,8 @@
-import { Button, Heading, Input, Radio, Label, Card, Badge } from 'theme-ui'
-import RenderAsImage from 'react-render-as-image'
+import { Button, Heading, Input, Radio, Label, Card, Badge, Image } from 'theme-ui'
 import { useState } from 'react'
-import Result from '../lib/result'
+import html2canvas from 'html2canvas';
 import friendlyWords from 'friendly-words'
-import fetch from 'isomorphic-unfetch'
-import url from 'url'
+import RenderAsImage from 'react-render-as-image'
 
 function getWord(selection) {
 	let words = friendlyWords[selection];
@@ -75,6 +73,13 @@ const Form = () => {
 		setGenerated(result.setting);
 		setList(chunkArray(tempList, 10));
 	}
+
+	function takeScreenshot() {
+		html2canvas(document.getElementById('card'), {backgroundColor: 'null', x: 0, y: 0, scale: 0.5}).then(function(canvas) {
+ 			document.getElementById("hi").src=canvas.toDataURL();
+		});
+	}
+
 	return (
 		<>
 			<Heading variant="subheadline">Number of prompts</Heading>
@@ -88,11 +93,11 @@ const Form = () => {
 			<br />
 			<Button onClick={getData}>Generate</Button>
 			<br />
-			<Card>
 				{generated != "" &&
 				<>
+					<Card id="card">
 						{list.map((section, index) => (
-							<ol start={index * 10 + 1}>
+							<ol key={index} start={index * 10 + 1}>
 								{section.map((element, index) => (
 									generated == 'words' ? 
 									<li key={index}>{element}</li> : 
@@ -104,9 +109,11 @@ const Form = () => {
 								))}
 							</ol>
 						))}
-						</>
+					</Card>
+					<Image id="hi"/>
+					<Button onClick={takeScreenshot}/>
+				</>
 				}
-			</Card>
 		</>
 	)
 }
