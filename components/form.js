@@ -7,6 +7,7 @@ import {
   Card,
   Badge,
   Image,
+  Container
 } from 'theme-ui'
 import { useState } from 'react'
 import html2canvas from 'html2canvas'
@@ -102,8 +103,8 @@ const Form = () => {
       canvas,
     ) {
       let screenshot = document.getElementById('screenshot')
-      screenshot.src = canvas.toDataURL();
-	  screenshot.style.display = 'none';
+      screenshot.src = canvas.toDataURL()
+      screenshot.style.display = 'none'
       const a = document.createElement('a')
       a.style.display = 'none'
       a.href = screenshot.src
@@ -150,28 +151,51 @@ const Form = () => {
       {generated != '' && (
         <>
           <Card id="card">
-            <Heading>{result.customName}</Heading>
-            {list.map((section, index) => (
-              <ol key={index} start={index * 10 + 1}>
-                {section.map((element, index) =>
-                  generated == 'words' ? (
-                    <li key={index}>{element}</li>
-                  ) : (
-                    <li key={index}>
-                      <Badge
-                        sx={{
-                          backgroundColor: `rgb(${element[0]}, ${element[1]}, ${element[2]})`,
-                        }}
-                      >
-                        {`#${toHex(element[0])}${toHex(element[1])}${toHex(
-                          element[2],
-                        )}`}
-                      </Badge>
-                    </li>
-                  ),
-                )}
-              </ol>
-            ))}
+            <Heading variant="headline" sx={{ textAlign: 'center' }}>
+              {result.customName}
+            </Heading>
+            <div>
+              <Container
+                sx={{
+                  display: 'flex',
+                  flexFlow: 'row wrap',
+                  flexBasis: '30%',
+                  justifyContent: 'center',
+                  margin: 'auto'
+                }}
+              >
+                {list.map((section, index) => (
+                  <ol
+                    key={index}
+                    start={index * 10 + 1}
+                    sx={{ display: 'inline-block' }}
+                  >
+                    {section.map((element, index) =>
+                      generated == 'words' ? (
+                        <li key={index} sx={{ width: [0, 1] }}>
+                          {element}
+                        </li>
+                      ) : (
+                        <li key={index} sx={{ display: 'inline-block' }}>
+                          <Badge
+                            sx={{
+                              border: '1px solid',
+                              borderColor: 'border',
+                              color: 'border',
+                              backgroundColor: `rgb(${element[0]}, ${element[1]}, ${element[2]})`,
+                            }}
+                          >
+                            {`#${toHex(element[0])}${toHex(element[1])}${toHex(
+                              element[2],
+                            )}`}
+                          </Badge>
+                        </li>
+                      ),
+                    )}
+                  </ol>
+                ))}
+              </Container>
+            </div>
           </Card>
           <Image id="screenshot" />
           <Button onClick={takeScreenshot}>Copy</Button>
