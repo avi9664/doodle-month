@@ -12,6 +12,7 @@ import {
 import { useState } from 'react'
 import html2canvas from 'html2canvas'
 import friendlyWords from 'friendly-words'
+import convert from 'color-convert'
 
 function getWord(selection) {
   let words = friendlyWords[selection]
@@ -20,14 +21,6 @@ function getWord(selection) {
   return word
 }
 
-function toHex(bn) {
-  var base = 16
-  var hex = bn.toString(base)
-  if (hex.length % 2) {
-    hex = '0' + hex
-  }
-  return hex
-}
 
 function chunkArray(array, size) {
   let result = []
@@ -138,6 +131,7 @@ const Form = () => {
         <Radio name="setting" onChange={handleChange} value={'colors'} />
         colors
       </Label>
+      <br />
       <Heading variant="subheadline">Custom name</Heading>
       <Input
         name="customName"
@@ -146,11 +140,12 @@ const Form = () => {
         onChange={handleChange}
       />
       <br />
-      <Button onClick={getData}>Generate</Button>
+      <Button sx={{mb: [4]}} onClick={getData}>Generate</Button>
       <br />
       {generated != '' && (
         <>
-          <Card id="card">
+          <Card id="card" sx={{my: [3]}}>
+            {/* <div className="grainy" sx={{ width: '100%', minHeight: '100%', height: 'inherit'}}/> */}
             <Heading variant="headline" sx={{ textAlign: 'center' }}>
               {result.customName}
             </Heading>
@@ -181,13 +176,11 @@ const Form = () => {
                             sx={{
                               border: '1px solid',
                               borderColor: 'border',
-                              color: 'border',
+                              color: `hsl(0, 0%, ${Math.round((100 - convert.rgb.hsl(element)[2]) / 100) * 100}%)`,
                               backgroundColor: `rgb(${element[0]}, ${element[1]}, ${element[2]})`,
                             }}
                           >
-                            {`#${toHex(element[0])}${toHex(element[1])}${toHex(
-                              element[2],
-                            )}`}
+                            {`#${convert.rgb.hex(element)}`}
                           </Badge>
                         </li>
                       ),
@@ -198,9 +191,11 @@ const Form = () => {
             </div>
           </Card>
           <Image id="screenshot" />
-          <Button onClick={takeScreenshot}>Copy</Button>
+          <Button onClick={takeScreenshot}>Download</Button>
         </>
       )}
+      <style jsx>{`
+      `}</style>
     </>
   )
 }

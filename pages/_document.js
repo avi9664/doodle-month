@@ -1,5 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { InitializeColorMode } from 'theme-ui'
+import Bg from '../components/bg'
 
 export default class extends Document {
   static async getInitialProps(ctx) {
@@ -9,8 +10,9 @@ export default class extends Document {
 
   render() {
     return (
-      <Html lang="en-US">
+      <Html lang="en-US" sx={{backgroundColor: 'primary'}}>
         <Head />
+        {/* <Bg /> */}
         <body>
           <InitializeColorMode />
           <Main />
