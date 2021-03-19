@@ -1,4 +1,4 @@
-import { Container } from 'theme-ui'
+import { Container, Image } from 'theme-ui'
 import Form from '../components/form'
 
 export default props => <Container as="main" py={4} variant="copy" {...props} />
@@ -6,7 +6,20 @@ export default props => <Container as="main" py={4} variant="copy" {...props} />
 # Doodle Month
 
 Craving a creative challenge? Insatiated after Inktober? Generate a list of prompts here and flex your art skills! You can choose between Inktober-style single-word prompts (courtesy of [Glitch's list of friendly words](https://friendly-words.glitch.me/)) or single colors (with hex codes provided).
+
 Have fun!
+
+(Image courtesy of [absurd.design](absurd.design))
+
+<Image sx={{
+    position: 'absolute',
+    width: '20vw',
+    height: 'auto',
+    top: '-5vw',
+    left: '-5vw',
+    transform: 'rotate(135deg)',
+}} src="lightbulb.svg"></Image>
+
 <Box sx={{ p: [3],}}>
 <Form />
 </ Box>

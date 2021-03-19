@@ -12,7 +12,6 @@ export default class extends Document {
     return (
       <Html lang="en-US" sx={{backgroundColor: 'primary'}}>
         <Head />
-        {/* <Bg /> */}
         <body>
           <InitializeColorMode />
           <Main />

@@ -7,7 +7,7 @@ import {
   Card,
   Badge,
   Image,
-  Container
+  Container,
 } from 'theme-ui'
 import { useState } from 'react'
 import html2canvas from 'html2canvas'
@@ -20,7 +20,6 @@ function getWord(selection) {
   let word = words[pick]
   return word
 }
-
 
 function chunkArray(array, size) {
   let result = []
@@ -115,6 +114,7 @@ const Form = () => {
       <Input
         name="dayNumber"
         type="number"
+        className="grainy"
         placeholder="e.g. 31 for Inktober"
         min="1"
         max="366"
@@ -124,11 +124,11 @@ const Form = () => {
       <br />
       <Heading variant="subheadline">Type of Prompt</Heading>
       <Label>
-        <Radio name="setting" onChange={handleChange} value={'words'} />
+        <Radio className="radio" name="setting" onChange={handleChange} value={'words'} />
         words
       </Label>
       <Label>
-        <Radio name="setting" onChange={handleChange} value={'colors'} />
+        <Radio className="radio" name="setting" onChange={handleChange} value={'colors'} />
         colors
       </Label>
       <br />
@@ -136,16 +136,18 @@ const Form = () => {
       <Input
         name="customName"
         placeholder="Your Drawing Challenge"
+        className="grainy"
         value={result.customName}
         onChange={handleChange}
       />
       <br />
-      <Button sx={{mb: [4]}} onClick={getData}>Generate</Button>
+      <Button sx={{ mb: [4] }} onClick={getData}>
+        Generate
+      </Button>
       <br />
       {generated != '' && (
         <>
-          <Card id="card" sx={{my: [3]}}>
-            {/* <div className="grainy" sx={{ width: '100%', minHeight: '100%', height: 'inherit'}}/> */}
+          <Card id="card" className='grainy' sx={{ my: [3] }}>
             <Heading variant="headline" sx={{ textAlign: 'center' }}>
               {result.customName}
             </Heading>
@@ -156,7 +158,7 @@ const Form = () => {
                   flexFlow: 'row wrap',
                   flexBasis: '30%',
                   justifyContent: 'center',
-                  margin: 'auto'
+                  margin: 'auto',
                 }}
               >
                 {list.map((section, index) => (
@@ -176,7 +178,11 @@ const Form = () => {
                             sx={{
                               border: '1px solid',
                               borderColor: 'border',
-                              color: `hsl(0, 0%, ${Math.round((100 - convert.rgb.hsl(element)[2]) / 100) * 100}%)`,
+                              color: `hsl(0, 0%, ${
+                                Math.round(
+                                  (100 - convert.rgb.hsl(element)[2]) / 100,
+                                ) * 100
+                              }%)`,
                               backgroundColor: `rgb(${element[0]}, ${element[1]}, ${element[2]})`,
                             }}
                           >
@@ -195,6 +201,9 @@ const Form = () => {
         </>
       )}
       <style jsx>{`
+        input [type='radio']:focus {
+          background-color: #ffa987;
+        }
       `}</style>
     </>
   )

@@ -10,7 +10,7 @@ const Bg = () => (
     </div>
     <style jsx>{`
       .bg {
-        position: absolute;
+        position: relative;
         left: 0;
         top: 0;
       }
